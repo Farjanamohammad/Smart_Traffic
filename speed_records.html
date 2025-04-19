@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speed Violations</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Speed Violation Records</h2>
+    <table>
+        <tr>
+            <th>Plate Number</th>
+            <th>Speed</th>
+            <th>Speed Limit</th>
+            <th>Timestamp</th>
+            <th>Image</th>
+        </tr>
+        {% for violation in violations %}
+        <tr>
+            <td>{{ violation.plate_number }}</td>
+            <td>{{ violation.speed }} km/h</td>
+            <td>{{ violation.speed_limit }} km/h</td>
+            <td>{{ violation.timestamp }}</td>
+            <td>
+                {% if violation.violation_image %}
+                    <img src="{{ violation.violation_image.url }}" alt="Violation Image" width="100">
+                {% else %}
+                    No Image
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No violations recorded yet.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
